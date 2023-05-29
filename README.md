@@ -192,6 +192,8 @@ We now send this to the administrator, we recover is token inside the leaked URL
 
 ![flag](images/2.png)
 
+Thanks a lot to [@kevin_mizu](https://twitter.com/kevin_mizu) for this challenge !
+
 # Flag
 
 ECTF{0auTh+hR3f_P0S1_M3sS4g3_L34k_T0_TH3_m00N}
